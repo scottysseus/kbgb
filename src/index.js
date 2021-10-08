@@ -47,6 +47,33 @@ export class KBGB {
   }
 
   /**
+   * isDown checks if the specified key is down currently
+   * @param {*} key the key to check
+   * @returns true if the key is down; false otherwise
+   */
+  isDown (key) {
+    return this.down[key]
+  }
+
+  /**
+   * isPressed checks if the specified key was pressed since the last flush
+   * @param {*} key the key to check
+   * @returns true if the key was pressed since the last flush; false otherwise
+   */
+  isPressed (key) {
+    return !this.downPrev[key] && this.down[key]
+  }
+
+  /**
+   * isReleased checks if the key was down and then released since the last flush
+   * @param {*} key the key to check
+   * @returns true if the key was released since the last flush; false otherwise
+   */
+  isReleased (key) {
+    return this.downPrev[key] && !this.down[key]
+  }
+
+  /**
    * flush clears the keyboard event queue. It captures all events registered since the last flush.
    * This function should be called in a render function.
    */
