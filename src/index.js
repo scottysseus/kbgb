@@ -78,10 +78,13 @@ export class KBGB {
    * This function should be called in a render function.
    */
   flush () {
+    // TODO could events be lost between these two lines?
     const snapshot = [...this.queue]
+    this.queue = []
+
     this.downPrev = this.down
     while (snapshot.length > 0) {
-      const event = this.queue.shift()
+      const event = snapshot
       switch (event.type) {
         case eventTypes.KEY_DOWN:
           this.down[event.key] = true
