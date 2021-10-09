@@ -1,13 +1,12 @@
 export class KBGB {
-  constructor ({ keys, document = window.document }) {
+  constructor ({ keys, registrationFunc = defaultRegistrationFunc() }) {
     this.keys = keys
-    this.document = document
     this.queue = []
 
     this.down = {}
     this.downPrev = {}
 
-    setupKeyboard(this.document, this.keys, this.queue)
+    registrationFunc(this.keys, this.queue)
   }
 
   /**
@@ -86,10 +85,10 @@ export class KBGB {
     while (snapshot.length > 0) {
       const event = snapshot
       switch (event.type) {
-        case eventTypes.KEY_DOWN:
+        case EventTypes.KEY_DOWN:
           this.down[event.key] = true
           break
-        case eventTypes.KEY_UP:
+        case EventTypes.KEY_UP:
           delete this.down[event.key]
           break
       }
@@ -97,23 +96,25 @@ export class KBGB {
   }
 }
 
-const eventTypes = {
+export const EventTypes = {
   KEY_UP: 0,
   KEY_DOWN: 1
 }
 
-function setupKeyboard (document, keys, queue) {
-  document.addEventListener('keydown', (event) => {
-    const keyName = event.key
-    if (keys.includes(keyName)) {
-      queue.push({ key: keyName, type: eventTypes.KEY_DOWN })
-    }
-  }, false)
+export function defaultRegistrationFunc (document = window.document) {
+  return (keys, queue) => {
+    document.addEventListener('keydown', (event) => {
+      const keyName = event.key
+      if (keys.includes(keyName)) {
+        queue.push({ key: keyName, type: EventTypes.KEY_DOWN })
+      }
+    }, false)
 
-  document.addEventListener('keyup', (event) => {
-    const keyName = event.key
-    if (keys.includes(keyName)) {
-      queue.push({ key: keyName, type: eventTypes.KEY_UP })
-    }
-  }, false)
+    document.addEventListener('keyup', (event) => {
+      const keyName = event.key
+      if (keys.includes(keyName)) {
+        queue.push({ key: keyName, type: EventTypes.KEY_UP })
+      }
+    }, false)
+  }
 }

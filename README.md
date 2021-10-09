@@ -10,7 +10,9 @@ This library is mainly meant for games, so we assume there is a render function 
 
 ```JavaScript
 
-const kbgb = new KBGB()
+const kbgb = new KBGB({
+    keys: ['ArrowLeft'] // the keys to track
+})
 
 function render(args) {
     // first call flush to update the keyboard state since the last iteration
