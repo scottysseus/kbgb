@@ -1,5 +1,20 @@
 export class KBGB {
-  constructor ({ keys, registrationFunc = defaultRegistrationFunc() }) {
+  /**
+   * Constructs a KBGB instance with the provided options.
+   *
+   * The options are:
+   *    registrationFunc: a function(keys = [], queue = []) for registering
+   *        key event listeners. The default registration function uses document
+   *        event listeners.
+   *
+   *    keys: a list of keys to register. key syntax ultimately depends on the registration
+   *        func. If the KeyboardJS registration func is used, the keys list must use KeyboardJS
+   *        syntax.
+   *
+   *
+   * @param {*} KBGB options
+   */
+  constructor ({ keys, registrationFunc = getDefaultRegistrationFunc() }) {
     this.keys = keys
     this.queue = []
 
@@ -101,7 +116,7 @@ export const EventTypes = {
   KEY_DOWN: 1
 }
 
-export function defaultRegistrationFunc (document = window.document) {
+export function getDefaultRegistrationFunc (document = window.document) {
   return (keys, queue) => {
     document.addEventListener('keydown', (event) => {
       const keyName = event.key
