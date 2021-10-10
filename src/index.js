@@ -98,7 +98,7 @@ export class KBGB {
 
     this.downPrev = this.down
     while (snapshot.length > 0) {
-      const event = snapshot
+      const event = snapshot.shift()
       switch (event.type) {
         case EventTypes.KEY_DOWN:
           this.down[event.key] = true
