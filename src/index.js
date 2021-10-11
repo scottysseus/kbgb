@@ -28,7 +28,7 @@ export class KBGB {
    *
    * @returns the set of keys which are down
    */
-  down () {
+  getDown () {
     return this.down
   }
 
@@ -36,7 +36,7 @@ export class KBGB {
    *
    * @returns the set of keys which were pressed since the last flush
    */
-  pressed () {
+  getPressed () {
     const pressed = {}
     Object.keys(this.down).forEach(key => {
       if (!this.downPrev[key]) {
@@ -50,7 +50,7 @@ export class KBGB {
    *
    * @returns the keys which were released since the last flush
    */
-  released () {
+  getReleased () {
     const released = {}
     Object.keys(this.downPrev).forEach(key => {
       if (!this.down[key]) {
