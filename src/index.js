@@ -94,9 +94,9 @@ export class KBGB {
   flush () {
     // TODO could events be lost between these two lines?
     const snapshot = [...this.queue]
-    this.queue = []
+    this.queue.length = 0;
 
-    this.downPrev = this.down
+    this.downPrev = Object.assign({}, this.down)
     while (snapshot.length > 0) {
       const event = snapshot.shift()
       switch (event.type) {
