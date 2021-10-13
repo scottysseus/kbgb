@@ -1,4 +1,4 @@
-import { EventTypes } from '.'
+import { EventTypes } from './index.js'
 
 export function getKeyboardJSRegistrationFunc (keyboardjs) {
   return (keys, queue) => {
