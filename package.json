@@ -2,7 +2,7 @@
   "name": "kbgb",
   "version": "0.1.0",
   "description": "Keyboard Library",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "mocha -r esm src/**/*.spec.js",
     "lint": "eslint ."
@@ -11,6 +11,10 @@
     "JavaScript"
   ],
   "author": "scottysseus",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:scottysseus/kbgb.git"
+  },
   "license": "ISC",
   "type": "module",
   "devDependencies": {
