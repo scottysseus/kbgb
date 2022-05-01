@@ -3,7 +3,7 @@ export class KBGB {
    * Constructs a KBGB instance with the provided options.
    *
    * The options are:
-   *    registrationFunc: a function(keys = [], queue = []) for registering
+   *    registrationFunc: a function(keys = [], eventHandler = func(event)) for registering
    *        key event listeners. The default registration function uses document
    *        event listeners.
    *
@@ -21,7 +21,7 @@ export class KBGB {
     this.down = {}
     this.downPrev = {}
 
-    registrationFunc(this.keys, this.queue)
+    registrationFunc(this.keys, (event) => this.queue.push(event))
   }
 
   /**
@@ -117,18 +117,18 @@ export const EventTypes = {
 }
 
 export function getDefaultRegistrationFunc (document = window.document) {
-  return (keys, queue) => {
+  return (keys, eventHandler) => {
     document.addEventListener('keydown', (event) => {
       const keyName = event.key
       if (keys.includes(keyName)) {
-        queue.push({ key: keyName, type: EventTypes.KEY_DOWN })
+        eventHandler({ key: keyName, type: EventTypes.KEY_DOWN })
       }
     }, false)
 
     document.addEventListener('keyup', (event) => {
       const keyName = event.key
       if (keys.includes(keyName)) {
-        queue.push({ key: keyName, type: EventTypes.KEY_UP })
+        eventHandler({ key: keyName, type: EventTypes.KEY_UP })
       }
     }, false)
   }
