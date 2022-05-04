@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "mocha -r ts-node/register -r esm dist/**/*.spec.js",
+    "test": "npx tsc && mocha -r ts-node/register -r esm dist/**/*.spec.js",
     "lint": "eslint ./src"
   },
   "keywords": [
@@ -19,6 +19,9 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@types/chai": "^4.3.1",
+    "@types/jsdom": "^16.2.14",
+    "@types/keyboardjs": "^2.5.0",
     "@types/mocha": "^9.1.1",
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",

@@ -1,11 +1,19 @@
 import { JSDOM } from 'jsdom'
 import { assert } from 'chai'
-import { KBGB, getDefaultRegistrationFunc } from './index'
+import { KBGB, getDefaultRegistrationFunc } from './kbgb'
 
 const window = new JSDOM().window
 const document = window.document
 
 describe('kbgb', () => {
+  describe('#constructor', () => {
+    it('can use a default registration func', () => {
+      assert.throws(() => {
+        const kbgb = new KBGB({ keys: ['ArrowLeft'] })
+      }, ReferenceError)
+    })
+  })
+
   describe('#getPressed', () => {
     it('returns buttons pressed since the previous flush', () => {
       const kbgb = new KBGB({ keys: ['ArrowLeft', 'ArrowRight', 'ArrowUp'], registrationFunc: getDefaultRegistrationFunc(document) })

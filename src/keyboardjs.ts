@@ -1,6 +1,6 @@
-import { Event, EventType } from './index'
+import { Event, EventType } from './kbgb'
 
-export function getKeyboardJSRegistrationFunc (keyboardjs) {
+export function getKeyboardJSRegistrationFunc (keyboardjs: any) {
   return (keys: string[], eventHandler: (event: Event) => any) => {
     keys.forEach((key: string) => {
       keyboardjs.bind(key, () => {
