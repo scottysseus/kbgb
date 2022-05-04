@@ -21,7 +21,7 @@ export interface Event {
   key: string
 }
 
-interface KeyMap {
+export interface KeyMap {
   [key: string]: boolean
 }
 
