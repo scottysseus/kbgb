@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom'
-import assert from 'assert'
-import { KBGB, getDefaultRegistrationFunc } from './index.js'
+import { assert } from 'chai'
+import { KBGB, getDefaultRegistrationFunc } from './index'
 
 const window = new JSDOM().window
 const document = window.document

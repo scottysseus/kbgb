@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+      "module": "esnext",
+      "moduleResolution": "node",
+      "declaration": true,
+      "outDir": "dist",
+      "lib": ["es2016", "dom"],
+      "strict": true
+    },
+    "include": ["src/**/*"],
+}

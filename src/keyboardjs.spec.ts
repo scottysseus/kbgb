@@ -1,6 +1,6 @@
-import assert from 'assert'
-import { getKeyboardJSRegistrationFunc } from './keyboardjs.js'
-import { KBGB } from './index.js'
+import { assert } from 'chai'
+import { getKeyboardJSRegistrationFunc } from './keyboardjs'
+import { KBGB } from './index'
 
 import('jsdom').then(async module => {
   const window = new module.JSDOM().window
@@ -21,7 +21,7 @@ import('jsdom').then(async module => {
 
       kbgb.flush()
 
-      assert.equal(kbgb.getDown('left > right'), true)
+      assert.equal(kbgb.isDown('left > right'), true)
     })
   })
-})
+}).catch(() => {})

@@ -2,10 +2,11 @@
   "name": "kbgb",
   "version": "0.1.0-beta.1",
   "description": "Keyboard Library",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "mocha -r esm src/**/*.spec.js",
-    "lint": "eslint ."
+    "test": "mocha -r ts-node/register -r esm dist/**/*.spec.js",
+    "lint": "eslint ./src"
   },
   "keywords": [
     "JavaScript"
@@ -14,14 +15,21 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@types/mocha": "^9.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.22.0",
+    "@typescript-eslint/parser": "^5.22.0",
+    "chai": "^4.3.6",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
+    "eslint-config-standard-with-typescript": "^21.0.1",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "esm": "^3.2.25",
     "jsdom": "^18.0.0",
     "keyboardjs": "^2.6.4",
-    "mocha": "^9.1.2"
+    "mocha": "^9.1.2",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
   }
 }

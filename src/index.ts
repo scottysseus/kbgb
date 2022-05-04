@@ -1,34 +1,55 @@
-export class KBGB {
+/**
+ * Options for creating a KBGB instance.
+ */
+export interface KBGBOptions {
   /**
-   * Constructs a KBGB instance with the provided options.
-   *
-   * The options are:
-   *    registrationFunc: a function(keys = [], eventHandler = func(event)) for registering
-   *        key event listeners. The default registration function uses document
-   *        event listeners.
-   *
-   *    keys: a list of keys to register. key syntax ultimately depends on the registration
-   *        func. If the KeyboardJS registration func is used, the keys list must use KeyboardJS
-   *        syntax.
-   *
-   *
-   * @param {*} KBGB options
+   * A list of keys to register. Key syntax ultimately depends on the registration
+   * func. If the KeyboardJS registration func is used, the keys list must use KeyboardJS
+   * syntax.
    */
-  constructor ({ keys, registrationFunc = getDefaultRegistrationFunc() }) {
-    this.keys = keys
+  keys: string[]
+  registrationFunc: (keys: string[], registrationFunc: (event: Event) => any) => any
+}
+
+export enum EventType {
+  KEY_UP = 0,
+  KEY_DOWN= 1
+}
+
+export interface Event {
+  type: EventType
+  key: string
+}
+
+interface KeyMap {
+  [key: string]: boolean
+}
+
+export class KBGB {
+  keys: string[]
+  queue: Event[]
+  down: KeyMap
+  downPrev: KeyMap
+
+  /**
+   *
+   * @param opts the options for this KBGB instance.
+   */
+  constructor (opts: KBGBOptions) {
+    this.keys = opts.keys
     this.queue = []
 
     this.down = {}
     this.downPrev = {}
 
-    registrationFunc(this.keys, (event) => this.queue.push(event))
+    opts.registrationFunc(this.keys, (event) => this.queue.push(event))
   }
 
   /**
    *
    * @returns the set of keys which are down
    */
-  getDown () {
+  getDown (): KeyMap {
     return this.down
   }
 
@@ -36,7 +57,7 @@ export class KBGB {
    *
    * @returns the set of keys which were pressed since the last flush
    */
-  getPressed () {
+  getPressed (): KeyMap {
     const pressed = {}
     Object.keys(this.down).forEach(key => {
       if (!this.downPrev[key]) {
@@ -50,7 +71,7 @@ export class KBGB {
    *
    * @returns the keys which were released since the last flush
    */
-  getReleased () {
+  getReleased (): KeyMap {
     const released = {}
     Object.keys(this.downPrev).forEach(key => {
       if (!this.down[key]) {
@@ -65,7 +86,7 @@ export class KBGB {
    * @param {*} key the key to check
    * @returns true if the key is down; false otherwise
    */
-  isDown (key) {
+  isDown (key: string): boolean {
     return this.down[key]
   }
 
@@ -74,7 +95,7 @@ export class KBGB {
    * @param {*} key the key to check
    * @returns true if the key was pressed since the last flush; false otherwise
    */
-  isPressed (key) {
+  isPressed (key: string): boolean {
     return !this.downPrev[key] && this.down[key]
   }
 
@@ -83,7 +104,7 @@ export class KBGB {
    * @param {*} key the key to check
    * @returns true if the key was released since the last flush; false otherwise
    */
-  isReleased (key) {
+  isReleased (key: string): boolean {
     return this.downPrev[key] && !this.down[key]
   }
 
@@ -91,7 +112,7 @@ export class KBGB {
    * flush clears the keyboard event queue. It captures all events registered since the last flush.
    * This function should be called in a render function.
    */
-  flush () {
+  flush (): any {
     // TODO could events be lost between these two lines?
     const snapshot = [...this.queue]
     this.queue.length = 0
@@ -100,10 +121,11 @@ export class KBGB {
     while (snapshot.length > 0) {
       const event = snapshot.shift()
       switch (event.type) {
-        case EventTypes.KEY_DOWN:
+        case EventType.KEY_DOWN:
           this.down[event.key] = true
           break
-        case EventTypes.KEY_UP:
+        case EventType.KEY_UP:
+          // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
           delete this.down[event.key]
           break
       }
@@ -111,24 +133,19 @@ export class KBGB {
   }
 }
 
-export const EventTypes = {
-  KEY_UP: 0,
-  KEY_DOWN: 1
-}
-
-export function getDefaultRegistrationFunc (document = window.document) {
-  return (keys, eventHandler) => {
+export function getDefaultRegistrationFunc (document: Document = window.document) {
+  return (keys: string[], eventHandler: (event: Event) => any) => {
     document.addEventListener('keydown', (event) => {
       const keyName = event.key
       if (keys.includes(keyName)) {
-        eventHandler({ key: keyName, type: EventTypes.KEY_DOWN })
+        eventHandler({ key: keyName, type: EventType.KEY_DOWN })
       }
     }, false)
 
     document.addEventListener('keyup', (event) => {
       const keyName = event.key
       if (keys.includes(keyName)) {
-        eventHandler({ key: keyName, type: EventTypes.KEY_UP })
+        eventHandler({ key: keyName, type: EventType.KEY_UP })
       }
     }, false)
   }
