@@ -1,6 +1,6 @@
 {
   "name": "kbgb",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "description": "Keyboard Library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,6 +12,10 @@
     "JavaScript"
   ],
   "author": "scottysseus",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:scottysseus/kbgb.git"
+  },
   "license": "ISC",
   "type": "module",
   "devDependencies": {
