@@ -8,7 +8,7 @@ export interface KBGBOptions {
    * syntax.
    */
   keys: string[]
-  registrationFunc?: (keys: string[], registrationFunc: (event: Event) => any) => any
+  registrationFunc?: (keys: string[], eventHandler: (event: Event) => any) => any
 }
 
 export enum EventType {
