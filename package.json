@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "npx tsc && mocha -r ts-node/register -r esm dist/**/*.spec.js",
+    "test": "npx tsc && mocha -r ts-node/register -r esm src/**/*.spec.ts",
     "lint": "eslint ./src"
   },
   "keywords": [
