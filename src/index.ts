@@ -1,2 +1,2 @@
-export * from './kbgb.js'
-export * from './keyboardjs.js'
+export * from './kbgb'
+export * from './keyboardjs'

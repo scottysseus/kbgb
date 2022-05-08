@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
       "module": "commonjs",
+      "target": "ES6",
       "moduleResolution": "node",
       "declaration": true,
       "outDir": "dist",
@@ -8,5 +9,5 @@
       "strict": true
     },
     "include": ["src/**/*"],
-    "exclude": ["**/*.spec.ts"]
+    "exclude": ["**/*.spec.ts", "node_modules"]
 }
