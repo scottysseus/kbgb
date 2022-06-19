@@ -1,9 +1,10 @@
 {
   "name": "kbgb",
-  "version": "0.1.0-beta.10",
+  "version": "0.1.0-beta.11",
   "description": "Keyboard Library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "files": [
     "dist",
     "README.md"
@@ -21,7 +22,6 @@
     "url": "git@github.com:scottysseus/kbgb.git"
   },
   "license": "ISC",
-  "type": "module",
   "devDependencies": {
     "@types/chai": "^4.3.1",
     "@types/jsdom": "^16.2.14",

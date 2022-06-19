@@ -1,4 +1,4 @@
-import { Event, EventType } from './kbgb'
+import { Event, EventType } from './kbgb.js'
 
 export function getKeyboardJSRegistrationFunc (keyboardjs: any) {
   return (keys: string[], eventHandler: (event: Event) => any) => {
